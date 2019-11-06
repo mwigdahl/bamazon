@@ -28,9 +28,7 @@ function showProducts() {
       obj["Department"] = res[i].department_name;
       obj["Price"] = res[i].price;
       obj["Stock"] = res[i].stock_quantity;
-
       myTable.push(obj);
-      var stock = res[i].stock_quantity;
     }
     console.table(myTable);
     buyNow();
@@ -68,25 +66,30 @@ function buyNow() {
     ])
     .then(function(answer) {
       var query =
-        "SELECT item_id,stock_quantity FROM products WHERE item_id = ?";
+        "SELECT item_id,stock_quantity,price FROM products WHERE item_id = ?";
       var item = answer.item_id;
       var quantity = answer.quantity;
-      console.log(item + " " + quantity);
 
       connection.query(query, item, function(err, res) {
-        // console.log('res', res[0].stock_quantity);
+        var price = res[0].price;
         if (quantity <= res[0].stock_quantity) {
-          console.log("you can purchase this!");
+          var total = quantity * price;
           connection.query(
             "UPDATE products SET stock_quantity = stock_quantity - " +
               quantity +
               " WHERE item_id = " +
               item
           );
+          console.log("\n-------------------------------------------------");
+          console.log("\nSuccess!  Your total purchase today is $" + total);
+          console.log("\n-------------------------------------------------");
+
           showProducts();
         } else {
-          console.log("Insufficient quantity!");
-          connection.end();
+          console.log("\n-------------------------------------------------");
+          console.log("\nInsufficient quantity! Try buying something else.");
+          console.log("\n-------------------------------------------------");
+          showProducts();
         }
       });
     });
