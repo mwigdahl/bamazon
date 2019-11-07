@@ -35,33 +35,29 @@ function showProducts() {
   });
 }
 
+function validateQ(input) {
+    if (isNaN(input) === false) {
+        return true;
+    } else if (isNaN(input) === true) {
+        console.log('\nYou need to provide a number');
+        return false;
+    }
+}
+
 function buyNow() {
   inquirer
     .prompt([
       {
         name: "item_id",
         type: "number",
-        message: "What Item ID would you like to buy? [Press Q to quit]",
-        validate: function(value) {
-          // if (value === "q" || value === "Q") {
-          //     connection.end();
-          // }
-          if (isNaN(value) === false) {
-            return true;
-          }
-          return false;
-        }
+        message: "What Item ID would you like to buy? [Press  to quit]",
+        validate: validateQ
       },
       {
         name: "quantity",
         type: "number",
         message: "How many would you like to buy?",
-        validate: function(value) {
-          if (isNaN(value) === false) {
-            return true;
-          }
-          return false;
-        }
+        validate: validateQ
       }
     ])
     .then(function(answer) {

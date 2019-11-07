@@ -20,7 +20,7 @@ function manageInventory() {
     .prompt({
       name: "manage",
       type: "list",
-      message: "Manage Product Inventory [Press Q to quit]",
+      message: "Manage Product Inventory",
       choices: [
         "View Products for Sale",
         "View Low Inventory",
@@ -29,6 +29,7 @@ function manageInventory() {
       ]
     })
     .then(function(answer) {
+
       switch (answer.manage) {
         case "View Products for Sale":
           showProducts();
@@ -43,7 +44,7 @@ function manageInventory() {
           break;
 
         case "Add New Product":
-          addProduct();
+          addProduct(); // Incomplete function
           break;
       }
     });
@@ -75,7 +76,6 @@ function lowInventory() {
     var query = "SELECT * FROM products WHERE stock_quantity <= 5";
     connection.query(query,function(err, res) {
         if (err) throw err;
-        //console.log("res", res);
         var myTable = [];
 
     for (var i = 0; i < res.length; i++) {
@@ -127,6 +127,6 @@ function addInventory() {
 //     var query = "INSERT INTO products (product_name, department_name, price, stock_quantity\) VALUES (" + product + "," + dept, price, stock)"
 //     connection.query("INSERT INTO products (product_name, department_name, price, stock_quantity)
 //     VALUES ()", function(err, res));
-//     console.log("something");
+//     console.log("This is incomplete");
     
 //     };
