@@ -64,7 +64,9 @@ function showProducts() {
       obj["Stock"] = res[i].stock_quantity;
       myTable.push(obj);
     }
+    console.log("\n--------------- Product Inventory -------------------\n");
     console.table(myTable);
+    console.log("\n-------------------------------------------------------");
     manageInventory();
   });
 };
@@ -85,8 +87,10 @@ function lowInventory() {
       obj["Stock"] = res[i].stock_quantity;
       myTable.push(obj);
     }
+    console.log("\n--------------- Low Inventory -------------------\n");
     console.table(myTable);
-        
+    console.log("\n-------------------------------------------------");
+    manageInventory();   
     });
 };
 
@@ -110,18 +114,19 @@ function addInventory() {
 
         connection.query(query, [stock, item], function(err, res){
             if (err) throw err;
-            console.log("res", res);
-                console.log("Updated the stock to " + stock); 
+            console.log("\n-------------------------------------------------");
+                console.log("\nUpdated the stock to " + stock); 
+                console.log("\n-------------------------------------------------");
                 showProducts();
         });
 
 });
 };
 
-function addProduct() {
-    var query = "INSERT INTO products (product_name, department_name, price, stock_quantity\) VALUES (" + product + "," + dept, price, stock)"
-    connection.query("INSERT INTO products (product_name, department_name, price, stock_quantity)
-    VALUES ()", function(err, res));
-    console.log("something");
+// function addProduct() {
+//     var query = "INSERT INTO products (product_name, department_name, price, stock_quantity\) VALUES (" + product + "," + dept, price, stock)"
+//     connection.query("INSERT INTO products (product_name, department_name, price, stock_quantity)
+//     VALUES ()", function(err, res));
+//     console.log("something");
     
-    };
+//     };
